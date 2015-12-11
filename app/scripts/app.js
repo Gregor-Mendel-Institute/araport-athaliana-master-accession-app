@@ -200,7 +200,7 @@
       $('#table',appContext).DataTable({
         dom: 'Bfrtip',
         data: data.rows,
-         buttons: ['pageLength','copy', 'csv','excel', 'pdf'],
+         buttons: ['pageLength','copy', 'csv','excel'],
          columns: [
            { type: 'numeric'},
             null,
@@ -228,7 +228,7 @@
       });
       initMap();
     };
-    fetch('./data.json').then(function(response) {
+    fetch('https://cdn.rawgit.com/Gregor-Mendel-Institute/araport-athaliana-master-accession-app/master/app/data.json').then(function(response) {
        return response.json();
     }).then(function(json) {
       showResults({obj:{result:[json]}});
