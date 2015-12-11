@@ -217,7 +217,7 @@
                 var btnType = 'btn-default';
                 var icon = 'pencil';
                 if (data[0] in curationMap) {
-                  type = 'btn-primary';
+                  btnType = 'btn-primary';
                   icon = 'info';
                 }
                 return '<button style="width:35.7188px;" class="btn btn-sm '+btnType+'" data-toggle="modal" data-target="#curationPopup" data-data="'+meta.row+'"><i style="font-size:16px" class="fa fa-'+icon+'" aria-hidden="true"></i></button>';
