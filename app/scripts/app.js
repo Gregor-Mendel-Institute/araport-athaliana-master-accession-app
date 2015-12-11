@@ -111,8 +111,8 @@
       }
       Agave.api.adama.search(curateService,function(response) {
         curationAlert.prop('hidden',false);
-        if (response.status === 'OK') {
-          curationAlert.removeClass('alert-success').addClass('alert-danger').text('Curation request successfully submitted');
+        if (response.obj.status === 'OK') {
+          curationAlert.removeClass('alert-success').addClass('alert-success').text('Curation request successfully submitted');
         } else {
           curationAlert.removeClass('alert-success').addClass('alert-danger').text('Curation request failed');
         }
