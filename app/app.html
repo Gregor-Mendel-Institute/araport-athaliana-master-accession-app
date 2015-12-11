@@ -1,0 +1,167 @@
+<div class="science-app" data-app-name="araport-athaliana-master-accession-app">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.0/css/buttons.bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+  
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.1.0/js/buttons.html5.min.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDYAfEQUBkHy6_0ysfwIRe6PucjpVoVFE&signed_in=true"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+  <script type="text/javascript" src="https://cdn.rawgit.com/gwendall/way.js/master/way.min.js"></script>
+  
+  
+   
+  <h2>A.thaliana accession table</h2>
+  <div class="results"></div>
+   <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#tableContainer" aria-controls="table" role="tab" data-toggle="tab">Table</a></li>
+    <li role="presentation"><a href="#geochartContainer" aria-controls="geochart" role="tab" data-toggle="tab">Geochart</a></li>
+    <li role="presentation"><a href="#mapContainer" aria-controls="map" role="tab" data-toggle="tab">Map</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tableContainer">
+      <table id="table" class="table table-striped table-bordered dataTable no-footer" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>ID</th>  
+            <th>Name</th>
+            <th>Country</th>
+            <th>sitename</th>
+            <th>latitude</th>
+            <th>longitude</th>
+            <th>collector</th>
+            <th>collection date</th>
+            <th>CS Number</th>
+            <th>Curate</th>
+          </tr>
+        </thead>
+      </table>  
+    </div>
+    <div role="tabpanel" class="tab-pane" id="geochartContainer">
+      <div id="geochart" style="width:100%;height:600px"></div>
+    </div>
+    <div role="tabpanel" style="width:100%; height:600px;" class="tab-pane" id="mapContainer">
+      <div id="map"></div>
+    </div>
+  </div>
+  
+  
+  <!-- Modal -->
+<div class="modal fade" id="curationPopup" tabindex="-1" role="dialog" aria-labelledby="curationPopupTitle">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="curationPopupTitle">Curate accession <span way-data="curationForm.name"></span> (<span way-data="curationForm.id"></span>)</h4>
+      </div>
+      <div class="modal-body">
+        <div class="alert" role="alert" hidden id="curationStatus"></div>
+        <form way-data="curationForm" id="curationForm" class="form-horizontal" way-persistent="false">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">ID</label>
+            <div class="col-sm-9">
+              <p class="form-control-static" way-data="curationForm.id"></p>
+            </div>
+          </div>
+          <div class="form-group" id="name-group">
+            <label for="name" class="col-sm-3 control-label">Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+              <span  class="help-block">Original: <span way-data="originalForm.name"></span></span>
+            </div>
+            
+          </div>
+          <div class="form-group" id="country-group">
+            <label for="country" class="col-sm-3 control-label">Country</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="country" name="country" placeholder="Country">
+              <span  class="help-block">Original: <span way-data="originalForm.country"></span></span>
+            </div>
+          </div>
+          <div class="form-group" id="sitename-group">
+           <label for="sitename" class="col-sm-3 control-label">Sitename</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="sitename" name="sitename" placeholder="Sitename">
+              <span  class="help-block">Original: <span way-data="originalForm.sitename"></span></span>
+            </div>
+          </div>
+          <div class="form-group" id="latitude-group">
+           <label for="latitude" class="col-sm-3 control-label">Latitude</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="latitude" name="latitude" placeholder="Latitude">
+              <span  class="help-block">Original: <span way-data="originalForm.latitude"></span></span>
+            </div>
+          </div>
+          <div class="form-group" id="longitude-group">
+           <label for="longitude" class="col-sm-3 control-label">Longitude</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="longitude" name="longitude" placeholder="Longitude">
+              <span  class="help-block">Original: <span way-data="originalForm.longitude"></span></span>
+            </div>
+          </div>
+          <div class="form-group" id="map-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+              <div id="curMap" style="width:100%;height:200px" ></div>
+            </div>
+          </div>
+          <div class="form-group" id="collector-group">
+           <label for="collector" class="col-sm-3 control-label">Collector</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="collector" name="collector" placeholder="Collector">
+              <span  class="help-block">Original: <span way-data="originalForm.collector"></span></span>
+            </div>
+          </div>
+          
+          <div class="form-group" id="collectiondate-group">
+           <label for="collectiondate" class="col-sm-3 control-label">Collection Date</label>
+            <div class="col-sm-9">
+              <div class='input-group date' id='collectionDatepicker'>
+                    <input type="text" class="form-control" id="collectiondate" name="collectiondate" placeholder="Collection Date">
+                    <span  class="help-block">Original: <span way-data="originalForm.collectiondate"></span></span>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+          </div>
+          <div class="form-group" id="CS_number-group">
+           <label for="cs_number" class="col-sm-3 control-label">CS Number</label>
+            <div class="col-sm-9">
+              <p class="form-control-static" way-data="curationForm.CS_number"></p>
+            </div>
+          </div>
+          <hr>
+          <h3>Curation info <small>Fill out if you change any information.</small></h3>
+          <div class="form-group">
+            <label for="comment" class="col-sm-3 control-label">Comment</label>
+              <div class="col-sm-9">
+                <textarea type="text" class="form-control" id="collector" name="comment" rows="10" placeholder="Comment"></textarea>
+              </div>
+            </div>
+          <div class="form-group">
+            <label for="curator" class="col-sm-3 control-label">Curator</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="curator" name="curator" placeholder="Curator">
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="savebutton">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+</div>

@@ -1,0 +1,12 @@
+{
+  "name": "araport-athaliana-master-accession-app",
+  "private": true,
+  "dependencies": {
+    "datatables.net": "~1.10.10",
+    "datatables.net-bs": "~1.10.10",
+    "datatables.net-buttons-bs": "~1.1.0",
+    "datatables.net-dt": "~1.10.9",
+    "way.js": "*",
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
+  }
+}
